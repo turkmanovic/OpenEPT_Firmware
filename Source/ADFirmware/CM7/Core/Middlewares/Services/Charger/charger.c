@@ -400,11 +400,11 @@ charger_status_t	CHARGER_SetChargingState(charger_charging_state_t state, uint32
 
 charger_status_t	CHARGER_GetChargingState(charger_charging_state_t* state, uint32_t initTimeout)
 {
-	if(xSemaphoreTake(prvCHARGER_DATA.guard, pdMS_TO_TICKS(initTimeout)) != pdTRUE) return CHARGER_STATUS_ERROR;
-
-	*state = prvCHARGER_DATA.chargingInfo.chargingStatus;
-
-	if(xSemaphoreGive(prvCHARGER_DATA.guard) != pdTRUE) return CHARGER_STATUS_ERROR;
+//	if(xSemaphoreTake(prvCHARGER_DATA.guard, pdMS_TO_TICKS(initTimeout)) != pdTRUE) return CHARGER_STATUS_ERROR;
+//
+//	*state = prvCHARGER_DATA.chargingInfo.chargingStatus;
+//
+//	if(xSemaphoreGive(prvCHARGER_DATA.guard) != pdTRUE) return CHARGER_STATUS_ERROR;
 
 	return CHARGER_STATUS_OK;
 }
@@ -429,39 +429,39 @@ charger_status_t	CHARGER_SetChargingCurrent(uint16_t current, uint32_t initTimeo
 
 charger_status_t	CHARGER_GetChargingCurrent(uint16_t* current, uint32_t initTimeout)
 {
-	if(xSemaphoreTake(prvCHARGER_DATA.guard, pdMS_TO_TICKS(initTimeout)) != pdTRUE) return CHARGER_STATUS_ERROR;
-
-	*current = prvCHARGER_DATA.chargingInfo.chargingCurrent;
-
-	if(xSemaphoreGive(prvCHARGER_DATA.guard) != pdTRUE) return CHARGER_STATUS_ERROR;
+//	if(xSemaphoreTake(prvCHARGER_DATA.guard, pdMS_TO_TICKS(initTimeout)) != pdTRUE) return CHARGER_STATUS_ERROR;
+//
+//	*current = prvCHARGER_DATA.chargingInfo.chargingCurrent;
+//
+//	if(xSemaphoreGive(prvCHARGER_DATA.guard) != pdTRUE) return CHARGER_STATUS_ERROR;
 
 	return CHARGER_STATUS_OK;
 }
 
 charger_status_t	CHARGER_SetChargingTermCurrent(uint16_t current, uint32_t initTimeout)
 {
-	if(xSemaphoreTake(prvCHARGER_DATA.guard, pdMS_TO_TICKS(initTimeout)) != pdTRUE) return CHARGER_STATUS_ERROR;
+//	if(xSemaphoreTake(prvCHARGER_DATA.guard, pdMS_TO_TICKS(initTimeout)) != pdTRUE) return CHARGER_STATUS_ERROR;
+//
+//	prvCHARGER_DATA.chargingInfo.terminationCurrent = current;
+//
+//	if(xSemaphoreGive(prvCHARGER_DATA.guard) != pdTRUE) return CHARGER_STATUS_ERROR;
 
-	prvCHARGER_DATA.chargingInfo.terminationCurrent = current;
-
-	if(xSemaphoreGive(prvCHARGER_DATA.guard) != pdTRUE) return CHARGER_STATUS_ERROR;
-
-	if(xTaskNotify(prvCHARGER_DATA.taskHandle,
-			CHARGER_TASK_SET_CURRENT_TERMINATION_VALUE,
-			eSetBits) != pdPASS) return CHARGER_STATUS_ERROR;
-
-
-	if(xSemaphoreTake(prvCHARGER_DATA.initSig, pdMS_TO_TICKS(initTimeout)) != pdPASS) return CHARGER_STATUS_ERROR;
+//	if(xTaskNotify(prvCHARGER_DATA.taskHandle,
+//			CHARGER_TASK_SET_CURRENT_TERMINATION_VALUE,
+//			eSetBits) != pdPASS) return CHARGER_STATUS_ERROR;
+//
+//
+//	if(xSemaphoreTake(prvCHARGER_DATA.initSig, pdMS_TO_TICKS(initTimeout)) != pdPASS) return CHARGER_STATUS_ERROR;
 
 	return CHARGER_STATUS_OK;
 }
 charger_status_t	CHARGER_GetChargingTermCurrent(uint16_t* current, uint32_t initTimeout)
 {
-	if(xSemaphoreTake(prvCHARGER_DATA.guard, pdMS_TO_TICKS(initTimeout)) != pdTRUE) return CHARGER_STATUS_ERROR;
-
-	*current = prvCHARGER_DATA.chargingInfo.terminationCurrent;
-
-	if(xSemaphoreGive(prvCHARGER_DATA.guard) != pdTRUE) return CHARGER_STATUS_ERROR;
+//	if(xSemaphoreTake(prvCHARGER_DATA.guard, pdMS_TO_TICKS(initTimeout)) != pdTRUE) return CHARGER_STATUS_ERROR;
+//
+//	*current = prvCHARGER_DATA.chargingInfo.terminationCurrent;
+//
+//	if(xSemaphoreGive(prvCHARGER_DATA.guard) != pdTRUE) return CHARGER_STATUS_ERROR;
 
 	return CHARGER_STATUS_OK;
 }
@@ -484,32 +484,32 @@ charger_status_t	CHARGER_SetChargingTermVoltage(float voltage, uint32_t initTime
 }
 charger_status_t	CHARGER_GetChargingTermVoltage(float* voltage, uint32_t initTimeout)
 {
-	if(xSemaphoreTake(prvCHARGER_DATA.guard, pdMS_TO_TICKS(initTimeout)) != pdTRUE) return CHARGER_STATUS_ERROR;
-
-	*voltage = prvCHARGER_DATA.chargingInfo.terminationVoltage;
-
-	if(xSemaphoreGive(prvCHARGER_DATA.guard) != pdTRUE) return CHARGER_STATUS_ERROR;
+//	if(xSemaphoreTake(prvCHARGER_DATA.guard, pdMS_TO_TICKS(initTimeout)) != pdTRUE) return CHARGER_STATUS_ERROR;
+//
+//	*voltage = prvCHARGER_DATA.chargingInfo.terminationVoltage;
+//
+//	if(xSemaphoreGive(prvCHARGER_DATA.guard) != pdTRUE) return CHARGER_STATUS_ERROR;
 
 	return CHARGER_STATUS_OK;
 }
 
 charger_status_t	CHARGER_GetRegContent(uint8_t regAddr, uint8_t* regData, uint32_t initTimeout)
 {
-	if(xSemaphoreTake(prvCHARGER_DATA.guard, pdMS_TO_TICKS(initTimeout)) != pdTRUE) return CHARGER_STATUS_ERROR;
-
-	prvCHARGER_DATA.regContent.addr = regAddr;
-	prvCHARGER_DATA.regContent.data = 0;
-
-	if(xSemaphoreGive(prvCHARGER_DATA.guard) != pdTRUE) return CHARGER_STATUS_ERROR;
-
-	if(xTaskNotify(prvCHARGER_DATA.taskHandle,
-			CHARGER_TASK_REG_READ,
-			eSetBits) != pdPASS) return CHARGER_STATUS_ERROR;
-
-
-	if(xSemaphoreTake(prvCHARGER_DATA.initSig, pdMS_TO_TICKS(initTimeout)) != pdPASS) return CHARGER_STATUS_ERROR;
-
-	*regData = prvCHARGER_DATA.regContent.data;
+//	if(xSemaphoreTake(prvCHARGER_DATA.guard, pdMS_TO_TICKS(initTimeout)) != pdTRUE) return CHARGER_STATUS_ERROR;
+//
+//	prvCHARGER_DATA.regContent.addr = regAddr;
+//	prvCHARGER_DATA.regContent.data = 0;
+//
+//	if(xSemaphoreGive(prvCHARGER_DATA.guard) != pdTRUE) return CHARGER_STATUS_ERROR;
+//
+//	if(xTaskNotify(prvCHARGER_DATA.taskHandle,
+//			CHARGER_TASK_REG_READ,
+//			eSetBits) != pdPASS) return CHARGER_STATUS_ERROR;
+//
+//
+//	if(xSemaphoreTake(prvCHARGER_DATA.initSig, pdMS_TO_TICKS(initTimeout)) != pdPASS) return CHARGER_STATUS_ERROR;
+//
+//	*regData = prvCHARGER_DATA.regContent.data;
 
 	return CHARGER_STATUS_OK;
 }
